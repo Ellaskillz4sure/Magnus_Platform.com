@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Magnus — Trusted source for wealth creation</title>
+  <meta name="description" content="Magnus — Trusted source for wealth creation. Learn, build, and grow with a modern platform designed for digital income and opportunity." />
+
+  <!-- Favicon (simple lightning bolt) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23ff7a18' d='M13 2L3 14h7l-1 8 10-12h-7l1-8z'/%3E%3C/svg%3E">
+
+  <style>
+    /* ====== Color System (derived from the image) ======
+       Deep cocoa/black background with hot orange glow accents.
+       Keeping the exact combo vibe: dark brown-black + vivid orange. */
+    :root{
+      --bg-950:#0b0a07;
+      --bg-925:#11100b;
+      --bg-900:#1a130c;
+      --bg-850:#22180f;
+      --surface:#20160e;
+      --muted:#d8cabc;
+      --ink:#f3efe9;
+      --ink-dim:#cbbfb3;
+
+      --orange-700:#ff5a00;
+      --orange-600:#ff6a00;
+      --orange-500:#ff7a18;
+      --orange-400:#ff8f2a;
+    }
+
+    /* Global reset */
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      color:var(--ink);
+      background:
+        radial-gradient(1200px 500px at 12% 60%, rgba(255,122,24,0.18), rgba(255,122,24,0.02) 60%, transparent 75%),
+        radial-gradient(900px 400px at 0% 35%, rgba(255,106,0,0.24), rgba(255,106,0,0.06) 45%, transparent 70%),
+        linear-gradient(180deg, var(--bg-925), var(--bg-950) 40%);
+      background-attachment: fixed;
+      line-height:1.6;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+      scroll-behavior:smooth;
+      padding-bottom:84px; /* Space for sticky footer */
+    }
+
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1200px;margin-inline:auto;padding-inline:clamp(16px,4vw,28px)}
+
+    /* ====== Sticky Nav ====== */
+    .nav-wrap{
+      position:sticky;top:0;z-index:1000;
+      backdrop-filter:saturate(1.2) blur(8px);
+      background:linear-gradient(180deg, rgba(17,16,11,0.86), rgba(17,16,11,0.70));
+      border-bottom:1px solid rgba(255,140,60,0.18);
+    }
+    .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.2px}
+    .brand svg{width:28px;height:28px;flex:0 0 28px;filter:drop-shadow(0 6px 18px rgba(255,106,0,.35))}
+    .brand .logo-square{
+      display:grid;place-items:center;
+      width:34px;height:34px;border-radius:9px;
+      background:linear-gradient(145deg,var(--orange-600),var(--orange-400));
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.25),
+        0 10px 24px rgba(255,106,0,0.25);
+    }
+    .brand span{font-size:1.05rem}
+    .nav-links{display:flex;gap:22px;align-items:center}
+    .nav-links a{opacity:.86;transition:opacity .2s ease, transform .2s ease}
+    .nav-links a:hover{opacity:1;transform:translateY(-1px)}
+    .cta{
+      padding:.55rem .9rem;border-radius:999px;font-weight:700;
+      background:linear-gradient(145deg,var(--orange-600),var(--orange-400));
+      color:#1b1b1b;
+      box-shadow:0 10px 26px rgba(255,106,0,0.25), inset 0 1px 0 rgba(255,245,230,.5);
+    }
+
+    /* Mobile menu */
+    .menu-btn{display:none;gap:8px;align-items:center}
+    .menu-btn button{
+      appearance:none;border:0;background:transparent;color:var(--ink);
+      padding:8px;border-radius:9px;
+    }
+    .hamburger{width:24px;height:2px;background:var(--ink);position:relative;display:block}
+    .hamburger::before,.hamburger::after{content:"";position:absolute;left:0;right:0;height:2px;background:var(--ink)}
+    .hamburger::before{top:-7px}.hamburger::after{top:7px}
+    @media (max-width: 880px){
+      .nav-links{display:none}
+      .menu-btn{display:flex}
+      .mobile-sheet{
+        position:fixed;inset:64px 0 auto 0;background:rgba(17,16,11,.96);backdrop-filter:blur(8px);
+        border-bottom: 1px solid rgba(255,140,60,0.18);
+        transform:translateY(-120%);transition:transform .3s ease;
+      }
+      .mobile-sheet.open{transform:translateY(0)}
+      .mobile-sheet a{display:block;padding:14px 22px;border-top:1px solid rgba(255,140,60,0.12);opacity:.9}
+      .mobile-sheet a:hover{opacity:1;background:rgba(255,122,24,.06)}
+    }
+
+    /* ====== Hero ====== */
+    .hero{padding-block:clamp(56px,8vw,92px)}
+    .hero-grid{
+      display:grid;gap:clamp(28px,4vw,48px);
+      grid-template-columns: 1.08fr .92fr;
+      align-items:center;
+    }
+    @media (max-width: 980px){.hero-grid{grid-template-columns:1fr}}
+
+    .eyebrow{letter-spacing:.24em;font-size:.75rem;color:var(--ink-dim);text-transform:uppercase}
+    .h1{
+      font-size:clamp(2rem, 4.2vw + .6rem, 4rem);
+      line-height:1.1;margin:.25rem 0 .6rem;font-weight:900;
+      color:var(--ink);
+      text-shadow:0 10px 36px rgba(255,122,24,0.25);
+    }
+    .lead{font-size:clamp(1rem, 1.2vw + .5rem, 1.25rem);color:var(--ink-dim)}
+
+    .cta-row{display:flex;gap:14px;align-items:center;margin-top:22px;flex-wrap:wrap}
+    .btn{
+      padding:.9rem 1.1rem;border-radius:14px;border:1px solid rgba(255,140,60,.22);
+      background:linear-gradient(180deg, rgba(255,122,24,.18), rgba(255,122,24,.08));
+      color:var(--ink);font-weight:700;letter-spacing:.2px;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 6px 24px rgba(255,106,0,.18);
+    }
+    .btn.primary{background:linear-gradient(145deg,var(--orange-600),var(--orange-400));color:#1b1b1b;border-color:transparent}
+
+    /* 3D orange tile */
+    .tile-wrap{display:grid;place-items:center;perspective:1000px}
+    .tile{
+      width:min(520px,88%);aspect-ratio:1.05/1;border-radius:36px;
+      background:linear-gradient(155deg,var(--orange-600),var(--orange-400) 60%);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.35),
+        0 25px 60px rgba(255,106,0,.45),
+        0 8px 24px rgba(0,0,0,.45);
+      display:grid;place-items:center;transform:rotateY(-14deg) rotateX(6deg);
+      position:relative;
+    }
+    .tile::after{
+      content:"";position:absolute;inset:8px;border-radius:28px;
+      background:linear-gradient(180deg, rgba(255,255,255,.25), rgba(255,255,255,0));
+      mix-blend:screen;pointer-events:none;
+    }
+    .bolt{
+      width:44%;max-width:240px;aspect-ratio:1/1;display:block;
+      filter:drop-shadow(0 10px 28px rgba(0,0,0,.55));
+    }
+    .pedestal{
+      margin-top:26px;width:min(620px,96%);height:36px;border-radius:999px;
+      background: radial-gradient(60% 180% at 50% 10%, rgba(255,122,24,.55), transparent 60%),
+                  linear-gradient(180deg, rgba(0,0,0,.2), rgba(0,0,0,.0));
+      filter: blur(4px);opacity:.8;
+    }
+
+    /* ====== Sections ====== */
+    section{padding-block:clamp(56px,8vw,92px)}
+    .section-title{
+      font-size:clamp(1.4rem,2.6vw + .6rem,2.4rem);
+      margin:0 0 8px;font-weight:900
+    }
+    .section-lead{color:var(--ink-dim);max-width:65ch;margin:0 0 26px}
+
+    .features{
+      display:grid;gap:18px;
+      grid-template-columns:repeat(12,1fr);
+    }
+    .card{
+      grid-column:span 4;
+      background:linear-gradient(180deg, rgba(255,122,24,.08), rgba(255,122,24,.04));
+      border:1px solid rgba(255,140,60,.18);
+      border-radius:18px;padding:18px;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.04), 0 10px 28px rgba(255,106,0,.12);
+    }
+    .card h3{margin:6px 0 6px;font-size:1.05rem}
+    .card p{margin:0;color:var(--ink-dim)}
+    @media (max-width: 980px){.card{grid-column:span 6}}
+    @media (max-width: 640px){.card{grid-column:span 12}}
+
+    /* Pricing pills */
+    .pricing{display:grid;gap:18px;grid-template-columns:repeat(12,1fr)}
+    .price{
+      grid-column:span 6;
+      padding:22px;border-radius:18px;
+      border:1px solid rgba(255,140,60,.18);
+      background:
+        linear-gradient(160deg, rgba(255,122,24,.12), rgba(255,122,24,.05)),
+        linear-gradient(180deg, var(--surface), rgba(32,22,14,.6));
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 10px 28px rgba(255,106,0,.1);
+    }
+    .price .tag{
+      display:inline-flex;gap:8px;align-items:center;
+      padding:.35rem .6rem;border-radius:999px;font-weight:700;
+      background:linear-gradient(145deg,var(--orange-600),var(--orange-400));
+      color:#1b1b1b;box-shadow:0 10px 20px rgba(255,106,0,.24)
+    }
+    .price ul{margin:10px 0 0;padding:0 0 0 18px;color:var(--ink-dim)}
+    .price strong{font-size:1.6rem}
+    @media (max-width: 780px){.price{grid-column:span 12}}
+
+    /* Contact */
+    form{display:grid;gap:12px;grid-template-columns:repeat(12,1fr)}
+    label{font-size:.9rem;color:var(--ink)}
+    input,textarea{
+      width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,140,60,.22);
+      background:rgba(32,22,14,.65);color:var(--ink);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+    }
+    input::placeholder, textarea::placeholder{color:#b8aa9a}
+    input:focus,textarea:focus{outline:2px solid rgba(255,122,24,.35);outline-offset:1px}
+    .col-6{grid-column:span 6}.col-12{grid-column:span 12}
+    @media (max-width: 720px){.col-6{grid-column:span 12}}
+
+    /* ====== Sticky Footer ====== */
+    .site-footer{
+      position:fixed;left:0;right:0;bottom:0;z-index:1000;
+      background:linear-gradient(180deg, rgba(17,16,11,0.86), rgba(17,16,11,0.98));
+      border-top:1px solid rgba(255,140,60,.18);
+      backdrop-filter:blur(8px);
+      color:var(--ink-dim);
+    }
+    .footer-inner{display:flex;gap:16px;align-items:center;justify-content:space-between;min-height:64px}
+    .footer-links{display:flex;gap:16px;flex-wrap:wrap}
+    .footer-cta{padding:.5rem .9rem;border-radius:999px;border:1px solid rgba(255,140,60,.24)}
+    .footer-cta:hover{background:rgba(255,122,24,.08)}
+
+    /* Subtle background pattern (zig-zag like the image) */
+    .pattern{
+      position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.07;
+      background-image: 
+        repeating-linear-gradient(45deg, transparent 0 26px, rgba(0,0,0,.45) 26px 27px),
+        repeating-linear-gradient(-45deg, transparent 0 26px, rgba(0,0,0,.45) 26px 27px);
+      mix-blend-mode:soft-light;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="pattern" aria-hidden="true"></div>
+
+  <!-- ====== NAV ====== -->
+  <div class="nav-wrap">
+    <nav class="nav container" aria-label="Primary">
+      <a href="#home" class="brand">
+        <div class="logo-square" aria-hidden="true">
+          <!-- black lightning bolt on orange tile -->
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" fill="#111111"></path>
+          </svg>
+        </div>
+        <span>Magnus</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#features">Features</a>
+        <a href="#pricing">Packages</a>
+        <a href="#contact">Contact</a>
+        <a href="#get-started" class="cta">Get Started</a>
+      </div>
+
+      <div class="menu-btn">
+        <button id="openMenu" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+          <span class="hamburger"></span>
+        </button>
+      </div>
+    </nav>
+    <div id="mobileMenu" class="mobile-sheet" role="dialog" aria-modal="true" aria-label="Mobile">
+      <a href="#about">About</a>
+      <a href="#features">Features</a>
+      <a href="#pricing">Packages</a>
+      <a href="#contact">Contact</a>
+      <a href="#get-started" class="cta" style="display:inline-block;margin:14px 22px;">Get Started</a>
+    </div>
+  </div>
+
+  <!-- ====== HERO ====== -->
+  <header id="home" class="hero container">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">Trusted source for wealth creation</div>
+        <h1 class="h1">Magnus</h1>
+        <p class="lead">A modern platform built for bold creators and smart earners. Discover tools, training, and programs that help you grow income the right way.</p>
+
+        <div class="cta-row">
+          <a href="#get-started" class="btn primary">Join Magnus</a>
+          <a href="#features" class="btn">Explore Features</a>
+        </div>
+      </div>
+
+      <div class="tile-wrap">
+        <div class="tile" aria-hidden="true">
+          <svg class="bolt" viewBox="0 0 24 24">
+            <path fill="#111111" d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"></path>
+          </svg>
+        </div>
+        <div class="pedestal" aria-hidden="true"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ====== ABOUT ====== -->
+  <section id="about" class="container">
+    <h2 class="section-title">Why Magnus?</h2>
+    <p class="section-lead">
+      We combine community, guidance, and well‑vetted earning paths. Our visual identity blends deep cocoa tones
+      with a vibrant orange glow — a signal of energy, clarity, and momentum.
+    </p>
+    <div class="features" id="features">
+      <article class="card">
+        <h3>Real Guidance</h3>
+        <p>Step‑by‑step tracks to help you learn fast, avoid mistakes, and build confidence.</p>
+      </article>
+      <article class="card">
+        <h3>Smart Tools</h3>
+        <p>Templates, automations, and checklists that save hours and increase output.</p>
+      </article>
+      <article class="card">
+        <h3>Active Community</h3>
+        <p>Connect with people who move like you — share wins, get feedback, and stay accountable.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ====== PRICING ====== -->
+  <section id="pricing" class="container">
+    <h2 class="section-title">Packages</h2>
+    <p class="section-lead">Choose a plan that fits how you work. Upgrade any time.</p>
+
+    <div class="pricing">
+      <div class="price">
+        <span class="tag">Starter</span>
+        <p style="margin:.6rem 0 0">For disciplined beginners.</p>
+        <p><strong>₦14,000</strong> / one‑time</p>
+        <ul>
+          <li>Guided onboarding</li>
+          <li>Access to core lessons</li>
+          <li>Weekly challenges</li>
+        </ul>
+        <div class="cta-row" style="margin-top:14px">
+          <a href="#get-started" class="btn primary">Get Starter</a>
+        </div>
+      </div>
+
+      <div class="price">
+        <span class="tag">Pro</span>
+        <p style="margin:.6rem 0 0">For builders ready to scale.</p>
+        <p><strong>₦28,000</strong> / one‑time</p>
+        <ul>
+          <li>Everything in Starter</li>
+          <li>Automation templates</li>
+          <li>Private support circle</li>
+        </ul>
+        <div class="cta-row" style="margin-top:14px">
+          <a href="#get-started" class="btn">Upgrade to Pro</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== CONTACT ====== -->
+  <section id="contact" class="container">
+    <h2 class="section-title">Contact</h2>
+    <p class="section-lead">Have questions? Send a quick note and we’ll reach back.</p>
+
+    <form onsubmit="return submitForm(event)">
+      <div class="col-6">
+        <label for="name">Full name</label>
+        <input id="name" name="name" placeholder="Your name" required>
+      </div>
+      <div class="col-6">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="you@example.com" required>
+      </div>
+      <div class="col-12">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="4" placeholder="Tell us what you want to accomplish…" required></textarea>
+      </div>
+      <div class="col-12">
+        <button class="btn primary" type="submit">Send Message</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- ====== CTA ====== -->
+  <section id="get-started" class="container" aria-label="Get started">
+    <div class="price" style="grid-column:1/-1">
+      <h3 style="margin:0 0 8px;font-size:1.3rem">Ready to move?</h3>
+      <p class="section-lead" style="margin:0 0 12px">Join Magnus and start building momentum today.</p>
+      <a class="btn primary" href="#contact">Get in touch</a>
+    </div>
+  </section>
+
+  <!-- ====== FOOTER (Sticky) ====== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div class="logo-square" style="width:26px;height:26px;border-radius:8px">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" fill="#111111"></path>
+          </svg>
+        </div>
+        <span>© <span id="year"></span> Magnus</span>
+      </div>
+      <div class="footer-links">
+        <a class="footer-cta" href="#features">Features</a>
+        <a class="footer-cta" href="#pricing">Packages</a>
+        <a class="footer-cta" href="#contact">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Set copyright year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile menu toggle
+    const openBtn = document.getElementById('openMenu');
+    const sheet = document.getElementById('mobileMenu');
+    openBtn?.addEventListener('click', () => {
+      const isOpen = sheet.classList.toggle('open');
+      openBtn.setAttribute('aria-expanded', String(isOpen));
+    });
+    // Close the menu when clicking a link
+    sheet?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      sheet.classList.remove('open');
+      openBtn.setAttribute('aria-expanded', 'false');
+    }));
+
+    // Contact form (demo only)
+    function submitForm(e){
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(e.target).entries());
+      alert(`Thanks, ${data.name}! We'll reply to ${data.email} shortly.`);
+      e.target.reset();
+      return false;
+    }
+
+    // Add slight elevation to nav on scroll
+    const navWrap = document.querySelector('.nav-wrap');
+    addEventListener('scroll', () => {
+      navWrap.style.boxShadow = (scrollY > 12)
+        ? '0 10px 24px rgba(0,0,0,.35)'
+        : 'none';
+    }, {passive:true});
+  </script>
+</body>
+</html>
